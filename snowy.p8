@@ -12,7 +12,7 @@ function _init()
 	speed=1
 	d=4
 	m=false
-	player = {x=60,y=60,sp=1,w=8,h=8,dy=0}
+	player = {x=60,y=60,sp=1,w=8,h=8}
 		-- collide with map tiles?
 	player.cm=true
 	-- collide with world bounds?
@@ -26,23 +26,8 @@ function _update()
 	if m then
  	walking()
  else
- 	player.sp=2
+ 	player.sp=1
  end
-if grounded() then
-    if (btnp(5)) then
-        player.dy=-6
-    else
-        player.dy = 0
-        -- fix position
-        -- or else he'll be sunk into floor
-        player.y = flr(flr(player.y)/8)*8
-    end
-else
-    -- gravity accel
-    player.dy += 0.98
-end
-player.y += player.dy
-end
 function cmap(o)
 	local ct=false
 	local cb=false
@@ -74,8 +59,6 @@ function move(o)
 
  if(btn(0)) o.x-=1 f=false m=true
  if(btn(1)) o.x+=1 f=true	m=true
- if(btn(2)) o.y-=1
- if(btn(3)) o.y+=1
 
  -- collision, move back
  if(cmap(o)) o.x=lx o.y=ly
@@ -89,11 +72,6 @@ function walking()
 		if player.sp>2 then player.sp=1 end
 		d=4
 	end
-end
--- grounded function
-function grounded()
-    v = mget(flr(player.x+4)/8, flr(player.y)/8+1)
-    return fget(v, 0)
 end
 -- draw function
 function _draw()
