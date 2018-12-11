@@ -28,6 +28,11 @@ function _update()
  else
  	player.sp=1
  end
+ if grounded() then
+        player.y = player.y
+    else
+        player.y += 0.98
+    end
 end
 
 function cmap(o)
@@ -76,6 +81,11 @@ function walking()
 		if player.sp>2 then player.sp=1 end
 		d=4
 	end
+end
+-- grounded function
+function grounded()
+    v = mget(flr(player.x+4)/8, flr(player.y)/8+1)
+    return fget(v, 0)
 end
 -- draw function
 function _draw()
