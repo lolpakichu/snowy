@@ -3,7 +3,8 @@ version 16
 __lua__
 -- snowy game
 -- by pokolo
-			
+col=0
+trap=1
 --player
 player=
 {
@@ -76,7 +77,7 @@ function _update()
 	
 	--look for a wall
 	local h=mget((player.x+xoffset)/8,(player.y+7)/8)
-	if fget(h,0) then
+	if fget(h,col) then
 		--they hit a wall so move them
 		--back to their original pos.
 		--it should really move them to
@@ -106,7 +107,7 @@ function _update()
 	--moving downward
 	if player.dy>=0 then
 		--look for a solid tile
-		if fget(v,0) then
+		if fget(v,col) then
 			--place player on top of tile
 			player.y = flr((player.y)/8)*8
 			--halt velocity
@@ -126,7 +127,7 @@ function _update()
 	--moving up
 	if player.dy<=0 then
 		--look for solid tile
-		if fget(v,0) then
+		if fget(v,col) then
 			--position player right below
 			--ceiling
 			player.y = flr((player.y+8)/8)*8
